@@ -2,7 +2,6 @@ package com.bridgelabz.fundoo.response;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -10,15 +9,32 @@ import java.time.LocalDateTime;
 @Builder
 public class ErrorResponse {
 
-    private final LocalDateTime TIMESTAMP =  LocalDateTime.now();
+   private int statusCode;
+   private String error;
+   private String message;
+   private String path;
+   private LocalDateTime timestamp;
 
-    private int statusCode;
 
-    private HttpStatus status;
+   private ErrorResponse (
+           int statusCode,
+           String error,
+           String message,
+           String path
+   ) {
+       this.statusCode = statusCode;
+       this.error = error;
+       this.message = message;
+       this.path = path;
+       this.timestamp = LocalDateTime.now();
+   }
 
-    private String error;
-
-    private String message;
-
-    private String path;
+   public static ErrorResponse of (
+           int statusCode,
+           String error,
+           String message,
+           String path
+   ) {
+       return new ErrorResponse(statusCode,error,message,path);
+   }
 }
