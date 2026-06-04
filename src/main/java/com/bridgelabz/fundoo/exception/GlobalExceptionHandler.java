@@ -1,8 +1,9 @@
 package com.bridgelabz.fundoo.exception;
 
 
+import com.bridgelabz.fundoo.constant.ErrorConstants;
+import com.bridgelabz.fundoo.constant.StatusConstants;
 import com.bridgelabz.fundoo.response.ErrorResponse;
-import com.bridgelabz.fundoo.constant.AppConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +25,10 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ){
         ErrorResponse error = ErrorResponse.of(
-                AppConstants.STATUS_NOT_FOUND,
-                "Not Found",
+                StatusConstants.NOT_FOUND,
+                ErrorConstants.ERR_NOT_FOUND,
                 ex.getMessage(),
-                request.getRequestURL()
+                request.getRequestURI()
         );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
@@ -39,8 +40,8 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         ErrorResponse error = ErrorResponse.of(
-                AppConstants.STATUS_NOT_FOUND,
-                "User Not Found",
+                StatusConstants.NOT_FOUND,
+                ErrorConstants.ERR_USER_NOT_FOUND,
                 ex.getMessage(),
                 request.getRequestURI()
         );
@@ -59,8 +60,8 @@ public class GlobalExceptionHandler {
         }
 
         ErrorResponse error = ErrorResponse.of(
-                AppConstants.STATUS_BAD_REQUEST,
-                "Validation Failed",
+                StatusConstants.BAD_REQUEST,
+                ErrorConstants.ERR_VALIDATION,
                 fieldErrors.toString(),
                 request.getRequestURI()
         );
@@ -74,8 +75,8 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         ErrorResponse error = ErrorResponse.of(
-                AppConstants.STATUS_CONFLICT,
-                "Conflict Email Already In Use",
+                StatusConstants.CONFLICT,
+                ErrorConstants.ERR_CONFLICT,
                 ex.getMessage(),
                 request.getRequestURI()
         );
@@ -88,9 +89,9 @@ public class GlobalExceptionHandler {
             Exception ex,
             HttpServletRequest request) {
         ErrorResponse error = ErrorResponse.of(
-                AppConstants.STATUS_SERVER_ERROR,
-                "Internal Server Error",
-                AppConstants.INTERNAL_SERVER_ERROR,
+                StatusConstants.SERVER_ERROR,
+                ErrorConstants.ERR_INTERNAL,
+                ex.getMessage(),
                 request.getRequestURI()
         );
 
