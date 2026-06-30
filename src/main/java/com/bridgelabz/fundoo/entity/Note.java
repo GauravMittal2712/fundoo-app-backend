@@ -63,6 +63,7 @@ public class Note extends BaseEntity {
             joinColumns = @JoinColumn(name = "note_id"),
             inverseJoinColumns = @JoinColumn(name = "label_id")
     )
+    @org.hibernate.annotations.BatchSize(size = 20)
     private Set<Label> labels = new HashSet<>();
 
     @OneToMany(
@@ -70,6 +71,7 @@ public class Note extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @org.hibernate.annotations.BatchSize(size = 20)
     private List<Reminder> reminders = new ArrayList<>();
 
     @OneToMany(
@@ -77,5 +79,6 @@ public class Note extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @org.hibernate.annotations.BatchSize(size = 20)
     private List<Collaborator> collaborators = new ArrayList<>();
 }
