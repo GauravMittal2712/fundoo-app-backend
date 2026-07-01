@@ -208,6 +208,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @CachePut(value = "users", key = "#id")
+    @Transactional
+    public UserResponseDto updateUserRole(Long id, Role role) throws UserNotFoundException {
+        log.info("Updating user role for ID: {} to {}", id, role);
+        User user = userRepository.findById(id)
+                .filter(u -> !u.isDeleted())
+                .orElseThrow(() -> new UserNotFoundException(ErrorConstants.USER_NOT_FOUND));
+        user.setRole(role);
+        User savedUser = userRepository.save(user);
+        return entityMapper.toUserResponseDto(savedUser);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();

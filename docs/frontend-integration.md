@@ -61,7 +61,13 @@ Fundoo uses **stateless JWT-based security**.
   }
   ```
 
-### 3. Adding Authorization Header to Requests
+### 3. Default Pre-Seeded Admin User (For Testing)
+On startup, a default admin account is seeded:
+- **Admin Email**: `admin@fundoo.com`
+- **Admin Password**: `AdminPassword@123`
+- **Role**: `ROLE_ADMIN`
+
+### 4. Adding Authorization Header to Requests
 For all secured endpoints (Notes, Labels, Collaborators, Reminders), you **must** attach the retrieved token in the `Authorization` request header:
 ```http
 Authorization: Bearer <your_jwt_token_here>
@@ -120,6 +126,7 @@ Requests that fail due to validation errors, invalid parameters, or security acc
 | **GET** | `/{id}` | Secured | Get profile details | None |
 | **PUT** | `/{id}` | Secured | Update profile details | [RegisterRequestDto](#registerrequestdto) |
 | **DELETE** | `/{id}` | Secured | Delete user account | None |
+| **PATCH** | `/{id}/role` | Secured (Admin Only) | Update user role | Query Param: `role` (ROLE_USER or ROLE_ADMIN) |
 
 ---
 

@@ -141,4 +141,35 @@ public class UserServiceImplTest {
 
         assertThrows(UserNotFoundException.class, () -> userService.getUserById(1L));
     }
+
+    @Test
+    void updateUserRole_Success() throws UserNotFoundException {
+        when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        
+        UserResponseDto adminResponse = UserResponseDto.builder()
+                .id(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .email("john.doe@example.com")
+                .role(Role.ROLE_ADMIN)
+                .active(true)
+                .verified(false)
+                .build();
+        when(entityMapper.toUserResponseDto(any(User.class))).thenReturn(adminResponse);
+
+        UserResponseDto result = userService.updateUserRole(1L, Role.ROLE_ADMIN);
+
+        assertNotNull(result);
+        assertEquals(Role.ROLE_ADMIN, result.getRole());
+        verify(userRepository, times(1)).save(any(User.class));
+    }
+
+    @Test
+    void updateUserRole_UserNotFound_ThrowsException() {
+        when(userRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> userService.updateUserRole(1L, Role.ROLE_ADMIN));
+        verify(userRepository, never()).save(any(User.class));
+    }
 }

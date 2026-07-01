@@ -15,6 +15,7 @@ public interface UserService {
     UserResponseDto getUserById(Long id) throws UserNotFoundException;
     List<UserResponseDto> getAllUsers();
     UserResponseDto updateUser(Long id, RegisterRequestDto updateRequest) throws UserNotFoundException;
+    UserResponseDto updateUserRole(Long id, com.bridgelabz.fundoo.entity.enums.Role role) throws UserNotFoundException;
     void deleteUser(Long id) throws UserNotFoundException;
     void forgotPassword(ForgotPasswordDto forgotPasswordRequest) throws UserNotFoundException;
     void resetPassword(ResetPasswordDto resetPasswordRequest) throws ResourceNotFoundException;

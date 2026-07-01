@@ -4,7 +4,7 @@ Fundoo is a high-performance, collaborative note-taking web application backend 
 
 ---
 
-## 🚀 Pre-Running Checklist (Must Check Before Running!)
+## Pre-Running Checklist (Must Check Before Running!)
 
 Before you compile and run the application, make sure the following checklist is completed:
 
@@ -34,6 +34,12 @@ Before you compile and run the application, make sure the following checklist is
   * Verify in terminal: `java -version`
   * Verify `JAVA_HOME` environment variable points to your Java 21 path (e.g. `C:\Program Files\Java\jdk-21.0.11` on Windows).
 
+### 5. Seeded Admin Account
+* On startup, the application checks if an admin user exists. If not, it automatically seeds:
+  * **Email**: `admin@fundoo.com`
+  * **Password**: `AdminPassword@123`
+  * **Role**: `ROLE_ADMIN`
+
 ---
 
 ## 🛠️ Technology Stack & Architecture
@@ -49,7 +55,7 @@ Before you compile and run the application, make sure the following checklist is
 
 ---
 
-## 🏃 Running the Application
+## Running the Application
 
 Follow these steps to build, test, and run the backend locally:
 
@@ -71,7 +77,7 @@ The server will start on **`http://localhost:8080`**.
 
 ---
 
-## 🌐 Frontend Integration & API Documentation
+##  Frontend Integration & API Documentation
 
 For the frontend team, a detailed API Integration and CORS setup guide is available inside the project at:
 * **[docs/frontend-integration.md](file:///d:/BridgeLabz/MagicSoftware/fundoo/docs/frontend-integration.md)**

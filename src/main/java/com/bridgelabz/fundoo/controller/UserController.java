@@ -96,4 +96,15 @@ public class UserController {
         userService.resetPassword(resetPasswordRequest);
         return ResponseEntity.ok(APIResponse.success(StatusConstants.OK, MessageConstants.PASSWORD_RESET_SUCCESS));
     }
+
+    @PatchMapping("/{id}/role")
+    @org.springframework.security.access.prepost.PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<APIResponse<UserResponseDto>> updateUserRole(
+            @PathVariable Long id,
+            @RequestParam com.bridgelabz.fundoo.entity.enums.Role role
+    ) throws Exception {
+        log.info("Received admin request to update role for user ID: {} to {}", id, role);
+        UserResponseDto response = userService.updateUserRole(id, role);
+        return ResponseEntity.ok(APIResponse.success(StatusConstants.OK, "User role updated successfully", response));
+    }
 }

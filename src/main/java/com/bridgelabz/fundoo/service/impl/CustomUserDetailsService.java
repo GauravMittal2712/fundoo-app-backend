@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                         u.getPassword(),
                         u.isActive() && !u.isDeleted(),
                         true, true, true,
-                        Collections.emptyList()
+                        java.util.List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority(u.getRole().name()))
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
