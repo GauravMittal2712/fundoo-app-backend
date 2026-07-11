@@ -7,27 +7,16 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@lombok.AllArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class ErrorResponse {
 
    private int statusCode;
    private String error;
    private String message;
    private String path;
-   private LocalDateTime timestamp;
-
-
-   private ErrorResponse (
-           int statusCode,
-           String error,
-           String message,
-           String path
-   ) {
-       this.statusCode = statusCode;
-       this.error = error;
-       this.message = message;
-       this.path = path;
-       this.timestamp = LocalDateTime.now();
-   }
+   
+   @Builder.Default
+   private LocalDateTime timestamp = LocalDateTime.now();
 
    public static ErrorResponse of (
            int statusCode,
@@ -35,6 +24,6 @@ public class ErrorResponse {
            String message,
            String path
    ) {
-       return new ErrorResponse(statusCode,error,message,path);
+       return new ErrorResponse(statusCode, error, message, path, LocalDateTime.now());
    }
 }
